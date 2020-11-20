@@ -1,0 +1,16 @@
+<p>timer works!</p>
+<input [(ngModel)]="newId" />
+<button (click)="addEntry()">Add</button>
+
+<table>
+  <tbody>
+    <tr *ngFor="let entry of entries">
+      <td>{{entry.id}}</td>
+      <td>
+        <span *ngIf="getElapsedTime(entry) as elapsed">
+          {{elapsed.hours}} h {{elapsed.minutes}} m {{elapsed.seconds}} s
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
