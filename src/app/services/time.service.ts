@@ -4,18 +4,19 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/
 import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Injectable(
-  
+  {providedIn: 'root'}
 )
 export class TimeService {
-  constructor(private changeDetector: ChangeDetectorRef) {
+  // constructor(private changeDetector: ChangeDetectorRef) {
 
-  }
+  // }
 
   aboutTimes = [];
   homeTimes = []
-  addTime(t,param){
+  addTime(t:number,param:string){
     switch(param)
        {case 'about':
            { this.aboutTimes.push(t);
@@ -23,10 +24,17 @@ export class TimeService {
            }
          case 'home' :
           {
-            this.homeTimes.push(t)
+            this.homeTimes.push(t);
+            break;
            }   
+         default :{
+           console.log("Wrong time page parameter");
+           break;
+         } 
+         console.log(this.aboutTimes)
       
       }
+
 
   }
 
