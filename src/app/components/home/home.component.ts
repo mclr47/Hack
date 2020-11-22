@@ -1,0 +1,60 @@
+import { ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ViewContainerRef } from '@angular/core';
+import { TimeService } from './../../services/time.service';
+import { Component, OnInit,OnDestroy ,AfterViewInit} from '@angular/core';
+import   {TimerComponent,Entry,TimeSpan} from '../timer/timer.component'
+import { Subject, interval } from 'rxjs';
+import { NgModule } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
+})
+export class HomeComponent implements OnInit,OnDestroy {
+  homet:Entry[];
+  timeTracker:TimerComponent;
+  timeSpan:TimeSpan;
+  tService:TimeService;
+  timer:TimerComponent;
+  newId: string="home";
+  //@ViewChild("app-timer") homeTime : TimerComponent;
+  @ViewChild("app-timer") homeTime : ViewContainerRef;
+  @ViewChild(TimerComponent) tComp :TimerComponent;
+  // constructor(thome:TimerComponent) {this.homet=thome.addEntry();
+  //   this.timeTracker=thome;
+  // }
+// constructor(private thome: TimeService){
+//   this.tService=thome;
+//   this.homet=this.tService.entries;
+// }
+ constructor(){}
+
+  // ngOnInit(): void {
+  //   //this.tService.sngOnInit();
+  //   this.timer.tngOnInit()
+   
+  // }
+  // onAfterViewInit{
+  //   this.homeTime.tn
+  // }
+  // ngOnDestroy() {
+  //   //this.tService.sngOnDestroy();
+  //   this.timer.tngOnDestroy()
+  // }
+
+  // hgetElapsedTime(entry: Entry):TimeSpan{
+  //   // const hTimeSpan:TimeSpan = this.tService.getElapsedTime(entry);
+  //   // return hTimeSpan;
+  //   const hTimeSpan :TimeSpan = this.timer.getElapsedTime(entry);
+  //   return hTimeSpan
+
+  // }
+
+  ngOnInit(){}
+  ngOnDestroy(){}
+}

@@ -1,4 +1,4 @@
-import {  OnInit } from '@angular/core';
+import {  OnInit, OnDestroy,Input } from '@angular/core';
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
@@ -20,24 +20,26 @@ export interface TimeSpan {
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  styleUrls: ['./timer.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TimerComponent implements OnInit {
+//export class TimerComponent implements OnInit {
+  export class TimerComponent{
   constructor(private changeDetector: ChangeDetectorRef) {
 
   }
 
-  entries: Entry[] = [
-    { id: 'yesterday', created: new Date(new Date().getTime() - (24 * 1000 * 60 * 60) ) },
-    { id: '1 hour ago', created: new Date(new Date().getTime() - (1000 * 60 * 60) ) },
-    { id: '1 minute ago', created: new Date(new Date().getTime() - (1000 * 60) ) }
-  ];
-  newId: string;
+  entries: Entry[] = [ ]
+  //   [{ id: 'yesterday', created: new Date(new Date().getTime() - (24 * 1000 * 60 * 60) ) },
+  //   { id: '1 hour ago', created: new Date(new Date().getTime() - (1000 * 60 * 60) ) },
+  //   { id: '1 minute ago', created: new Date(new Date().getTime() - (1000 * 60) ) }
+  // ];
+  @Input() newId: string;
   
   private destroyed$ = new Subject();
 
   ngOnInit() {
-    this.newId = 'first';
+    // this.newId = 'first';
     this.addEntry();
     
     interval(1000).subscribe(() => {
@@ -48,6 +50,7 @@ export class TimerComponent implements OnInit {
 
     this.changeDetector.detectChanges();
   }
+
 
   ngOnDestroy() {
     this.destroyed$.next();
@@ -60,6 +63,8 @@ export class TimerComponent implements OnInit {
       id: this.newId
     });
     this.newId = '';
+    // my next line
+    return this.entries;
   }
 
   getElapsedTime(entry: Entry): TimeSpan {        
@@ -87,8 +92,13 @@ export class TimerComponent implements OnInit {
       seconds: seconds
     };
   }
+  getelapsedTimeSeconds(entry: Entry){
+    let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
+    return totalSeconds;
+  }
 }
 
+  
   
 
 
