@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ViewContainerRef } from '@angular/core';
 import { TimeService } from './../../services/time.service';
-import { Component, OnInit,OnDestroy ,AfterViewInit} from '@angular/core';
+import { Component, OnInit,OnDestroy ,AfterViewInit,Input,Output} from '@angular/core';
 import   {TimerComponent,Entry,TimeSpan} from '../timer/timer.component'
 import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   tService:TimeService;
   timer:TimerComponent;
   newId: string="home";
+  
   //@ViewChild("app-timer") homeTime : TimerComponent;
   @ViewChild("app-timer") homeTime : ViewContainerRef;
   @ViewChild(TimerComponent) tComp :TimerComponent;
@@ -32,8 +33,8 @@ export class HomeComponent implements OnInit,OnDestroy {
 //   this.tService=thome;
 //   this.homet=this.tService.entries;
 // }
+ //constructor(private  tservice:TimeService){this.tService=this.tservice}
  constructor(){}
-
   // ngOnInit(): void {
   //   //this.tService.sngOnInit();
   //   this.timer.tngOnInit()
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit,OnDestroy {
   //   return hTimeSpan
 
   // }
-
+//console.log(tService.abou )
   ngOnInit(){}
   ngOnDestroy(){}
 }

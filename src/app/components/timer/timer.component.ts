@@ -1,4 +1,5 @@
-import {  OnInit, OnDestroy,Input } from '@angular/core';
+import { TimeService } from './../../services/time.service';
+import {  OnInit, OnDestroy,Input ,Output, EventEmitter} from '@angular/core';
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
@@ -25,7 +26,7 @@ export interface TimeSpan {
 })
 //export class TimerComponent implements OnInit {
   export class TimerComponent{
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(private changeDetector: ChangeDetectorRef, private  tservice:TimeService) {
 
   }
 
@@ -35,9 +36,9 @@ export interface TimeSpan {
   //   { id: '1 minute ago', created: new Date(new Date().getTime() - (1000 * 60) ) }
   // ];
   @Input() newId: string;
-  
+  private created:Date = new Date();
   private destroyed$ = new Subject();
-
+  @Output() timeCounterSec = new EventEmitter<number>()
   ngOnInit() {
     // this.newId = 'first';
     this.addEntry();
@@ -52,7 +53,14 @@ export interface TimeSpan {
   }
 
 
-  ngOnDestroy() {
+  ngOnDestroy(pageName:string) {
+    
+    //this.tservice.addTime(7,'about');
+    //this.timeCounterSec.emit( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
+    //console.log( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
+    this.tservice.addTime(this.getelapasedTimeSeconds())
+    console.log(this.getelapasedTimeSeconds)
+    console.log(this.getElapsedTime)
     this.destroyed$.next();
     this.destroyed$.complete();
   }
@@ -69,7 +77,7 @@ export interface TimeSpan {
 
   getElapsedTime(entry: Entry): TimeSpan {        
     let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
-    
+    //console.log(typeof totalSeconds);
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
@@ -92,9 +100,12 @@ export interface TimeSpan {
       seconds: seconds
     };
   }
-  getelapsedTimeSeconds(entry: Entry){
-    let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
-    return totalSeconds;
+ // getelapsedTimeSeconds(entry: Entry){
+    getelapasedTimeSeconds(){ 
+    //let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
+    let totalSeconds = Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000);
+      return totalSeconds;
+     
   }
 }
 

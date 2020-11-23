@@ -5,7 +5,7 @@ import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { CompileShallowModuleMetadata } from '@angular/compiler';
-
+//import {Storage} from '@ionic/storage';
 @Injectable(
   {providedIn: 'root'}
 )
@@ -15,34 +15,55 @@ export class TimeService {
   // }
 
   aboutTimes = [];
-  homeTimes = []
-  addTime(t:number,param:string){
-    switch(param)
-       {case 'about':
-           { this.aboutTimes.push(t);
-             break;
-           }
-         case 'home' :
-          {
-            this.homeTimes.push(t);
-            break;
-           }   
-         default :{
-           console.log("Wrong time page parameter");
-           break;
-         } 
-         console.log(this.aboutTimes)
-      
-      }
-
-
+  homeTimes = [];
+  constructor(){
+    this.aboutTimes = localStorage.getItem("about") !== null
+       ?JSON.parse(localStorage.getItem("about")):[];
+       this.homeTimes = localStorage.getItem("about") !== null
+       ?JSON.parse(localStorage.getItem("about")):[];   
   }
+
+  addTime(val:number){
+    if(val>=0)
+    {
+      this.aboutTimes.push(val);
+      console.log(this.aboutTimes);
+      localStorage.setItem("about",JSON.stringify(this.aboutTimes));  
+    }
+    else{
+      alert("No valid time to be inserted");
+      
+    }
+  }
+  
+  
+}
+  // addTime(t:number,param:string){
+  //   switch(param)
+  //      {case 'about':
+  //          { this.aboutTimes.push(t);
+  //            break;
+  //          }
+  //        case 'home' :
+  //         {
+  //           this.homeTimes.push(t);
+  //           break;
+  //          }   
+  //        default :{
+  //          console.log("Wrong time page parameter");
+  //          break;
+  //        } 
+  //        console.log(this.aboutTimes)
+      
+  //     }
+
+
+  
 
 
 
 
  
-}
 
 
 
