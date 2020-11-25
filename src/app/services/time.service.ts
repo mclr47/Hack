@@ -5,6 +5,10 @@ import { Subject, interval } from 'rxjs';
 import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { CompileShallowModuleMetadata } from '@angular/compiler';
+
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 //import {Storage} from '@ionic/storage';
 @Injectable(
   {providedIn: 'root'}
@@ -13,7 +17,7 @@ export class TimeService {
   // constructor(private changeDetector: ChangeDetectorRef) {
 
   // }
-
+  data :[];
   aboutTimes = [];
   homeTimes = [];
   constructor(){
@@ -21,14 +25,50 @@ export class TimeService {
        ?JSON.parse(localStorage.getItem("about")):[];
        this.homeTimes = localStorage.getItem("about") !== null
        ?JSON.parse(localStorage.getItem("about")):[];   
+    this.homeTimes = localStorage.getItem("home") !== null
+       ?JSON.parse(localStorage.getItem("home")):[];
+       this.homeTimes = localStorage.getItem("home") !== null
+       ?JSON.parse(localStorage.getItem("home")):[];       
   }
-
-  addTime(val:number){
-    if(val>=0)
+   getData(page:string)
     {
-      this.aboutTimes.push(val);
-      console.log(this.aboutTimes);
-      localStorage.setItem("about",JSON.stringify(this.aboutTimes));  
+      return localStorage.getItem(page) !== null 
+             ?JSON.parse(localStorage.getItem(page)) :[]
+    }
+    setData(page:string,data:number[] )
+    {  
+       localStorage.setItem(page,JSON.stringify( data));
+    }
+  addTime(val:number,pageName:string){
+    if(val>=0)
+    { //switch (pageName)
+      // {case  "about" :
+       if(pageName==="about")  { 
+           this.aboutTimes =this.getData("about"); 
+           this.aboutTimes.push(val);
+          console.log("about array : ") 
+          console.log(this.aboutTimes);
+          localStorage.setItem("about",JSON.stringify(this.aboutTimes)); 
+          this.aboutTimes = this. getData("about");
+         // break;
+         }
+       // case "home" :
+        else if(pageName ==="home")
+          { this.homeTimes=this.getData("home")
+            this.homeTimes.push(val);
+            console.log("home array : ");
+            console.log(this.homeTimes);
+            localStorage.setItem("home",JSON.stringify(this.homeTimes)); 
+            this.homeTimes = this.getData("home");
+         // break;
+          } 
+           
+          //default :
+          //else
+          // {
+          //   console.log("not on the page ")
+          // }
+       
     }
     else{
       alert("No valid time to be inserted");
@@ -38,6 +78,10 @@ export class TimeService {
   
   
 }
+
+
+
+
   // addTime(t:number,param:string){
   //   switch(param)
   //      {case 'about':

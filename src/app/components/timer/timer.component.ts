@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {NavComponent} from '../header/nav/nav.component'
 export interface Entry {
   created: Date;
   id: string;
@@ -27,7 +28,7 @@ export interface TimeSpan {
 //export class TimerComponent implements OnInit {
   export class TimerComponent{
   constructor(private changeDetector: ChangeDetectorRef, private  tservice:TimeService) {
-
+    
   }
 
   entries: Entry[] = [ ]
@@ -53,14 +54,15 @@ export interface TimeSpan {
   }
 
 
-  ngOnDestroy(pageName:string) {
+  ngOnDestroy() {
     
     //this.tservice.addTime(7,'about');
     //this.timeCounterSec.emit( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
     //console.log( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
-    this.tservice.addTime(this.getelapasedTimeSeconds())
-    console.log(this.getelapasedTimeSeconds)
-    console.log(this.getElapsedTime)
+    this.tservice.addTime(this.getelapsedTimeSeconds(),this.newId)
+    console.log(this.getelapsedTimeSeconds());
+    console.log(this.tservice.aboutTimes);
+//console.log(this.getElapsedTime)
     this.destroyed$.next();
     this.destroyed$.complete();
   }
@@ -101,7 +103,7 @@ export interface TimeSpan {
     };
   }
  // getelapsedTimeSeconds(entry: Entry){
-    getelapasedTimeSeconds(){ 
+    getelapsedTimeSeconds(){ 
     //let totalSeconds = Math.floor((new Date().getTime() - entry.created.getTime()) / 1000);
     let totalSeconds = Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000);
       return totalSeconds;

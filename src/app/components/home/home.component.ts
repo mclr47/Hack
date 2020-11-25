@@ -1,3 +1,5 @@
+import { ChangeComponent } from 'src/app/services/can-deactivate-guard.service';
+import { NavComponent } from './../header/nav/nav.component';
 import { ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ViewContainerRef } from '@angular/core';
 import { TimeService } from './../../services/time.service';
 import { Component, OnInit,OnDestroy ,AfterViewInit,Input,Output} from '@angular/core';
@@ -7,6 +9,8 @@ import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -15,11 +19,11 @@ import { ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 
 })
-export class HomeComponent implements OnInit,OnDestroy {
+export class HomeComponent implements OnInit,OnDestroy ,ChangeComponent{
   homet:Entry[];
   timeTracker:TimerComponent;
   timeSpan:TimeSpan;
-  tService:TimeService;
+  ts:TimeService;
   timer:TimerComponent;
   newId: string="home";
   
@@ -57,5 +61,11 @@ export class HomeComponent implements OnInit,OnDestroy {
   // }
 //console.log(tService.abou )
   ngOnInit(){}
-  ngOnDestroy(){}
+  ngOnDestroy(){console.log("Home destroyed !!!")}
+  canDeactivate(): (Observable<boolean> | Promise<boolean> |boolean){
+    // this.ts.addTime(this.tComp.getelapsedTimeSeconds(),this.newId);
+     return true;
+     return true;
+   }
+
 }

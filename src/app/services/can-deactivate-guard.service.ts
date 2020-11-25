@@ -18,6 +18,6 @@ export class CanDeactivateGuard implements CanDeactivate <ChangeComponent> {
     currentState:RouterStateSnapshot,
     nextState? : RouterStateSnapshot) :  Observable<boolean> | Promise<boolean> |boolean
     {
-      return confirm('Do  you want to move away from about page?');
+      return confirm('Do  you want to move away from  page?');
     }
 }

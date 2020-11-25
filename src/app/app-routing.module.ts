@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {CanDeactivateGuard} from './services/can-deactivate-guard.service'
 const routes: Routes = [{path:'', redirectTo:'/home',pathMatch:'full'},
 {path:'home',component:HomeComponent,canDeactivate:[CanDeactivateGuard]},
-{path:'about',component:AboutComponent}
+{path:'about',component:AboutComponent,canDeactivate:[CanDeactivateGuard]}
 
 ];
 

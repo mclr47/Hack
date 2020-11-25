@@ -44,19 +44,19 @@ export class AboutComponent implements OnInit,OnDestroy,AfterViewInit,ChangeComp
   //console.log(typeof elapsedtime);
 
   ngOnDestroy():void{
-    //this.ts.addTime(this.tComp.getelapsedTimeSeconds(this.startTime),this.newId);
+  //this.ts.addTime(this.tComp.getelapsedTimeSeconds(this.startTime),this.newId);
    //this.tComp.getelapsedTimeSeconds; 
    //const currtime= this.ts.addTime(this.tComp.getelapsedTimeSeconds(this.startTime),this.newId);
    //this.elapsedtime = this.ts.aboutTimes[this.ts.aboutTimes.length-1];
      /////this.elapsedtime = this.tComp.getelapasedTimeSeconds();
    //(this.elapsedtime)= "$event";
-   console.log("About??")
+   console.log("About destroyed !!!")
   //  console.log(this.ts.aboutTimes);
   //  console.log(this.ts.aboutTimes);
    /////console.log(this.elapsedtime);
   }
   canDeactivate(): (Observable<boolean> | Promise<boolean> |boolean){
-   this.ts.addTime(this.tComp.getelapasedTimeSeconds());
+   //this.ts.addTime(this.tComp.getelapsedTimeSeconds(),this.newId);
     return true;
     return true;
   }
