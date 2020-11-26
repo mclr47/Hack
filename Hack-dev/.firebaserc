@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "final-project-dd23a": {
+      "hosting": {
+        "hack": [
+          "final-project-dd23a"
+        ]
+      }
+    }
+  }
+}
