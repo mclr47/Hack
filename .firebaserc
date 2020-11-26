@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "timer-c8caf": {
+      "hosting": {
+        "hack": [
+          "timer-c8caf"
+        ]
+      }
+    }
+  }
+}
