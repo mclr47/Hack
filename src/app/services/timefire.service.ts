@@ -45,6 +45,19 @@ export class TimefireService {
     //     .catch((error) => console.error('There was an error while writing sound/song to the console' , error) );
 
   }
+
+  addTimePageToFire(t,page:string){
+        
+    const timeCollection = this.db.collection(page).add({t})
+      .then((docRef) => console.log('time spent id is... : ', docRef.id))
+      .catch((error) => console.error('there was an error writing time to the database : ', error));
+
+    // firestoreDb.collection(`users/${user.uid}/songs`);
+    // songsCollection.add(song)
+    //     .then((docRef) => console.log('Song document Id: ',docRef.id))
+    //     .catch((error) => console.error('There was an error while writing sound/song to the console' , error) );
+
+  }
     //    
   
 

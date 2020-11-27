@@ -39,11 +39,13 @@ export interface TimeSpan {
   //   { id: '1 hour ago', created: new Date(new Date().getTime() - (1000 * 60 * 60) ) },
   //   { id: '1 minute ago', created: new Date(new Date().getTime() - (1000 * 60) ) }
   // ];
-  @Input() newId: string;
+  @Input() public newId: string;
   private created:Date = new Date();
   private destroyed$ = new Subject();
+  //private currentPage$= new Subject;
   @Output() timeCounterSec = new EventEmitter<number>()
   ngOnInit() {
+    //this.currentPage$=this.newId;
     // this.newId = 'first';
     this.addEntry();
     
@@ -55,15 +57,22 @@ export interface TimeSpan {
 
     this.changeDetector.detectChanges();
   }
-
-
+   returnCurrentPage()
+   {return this.newId;}
+  //  target.ngOnDestroy = () => {
   ngOnDestroy() {
     
+    console.log("from ngOnDestroy")
+    //console.log("this newId : ",this.returnCurrentPage());
+    console.log(this.newId.valueOf());
+    console.log("created : ",this.created);
+    console.log(this.returnCurrentPage());
     //this.tservice.addTime(7,'about');
     //this.timeCounterSec.emit( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
     //console.log( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
     this.tservice.addTime(this.getelapsedTimeSeconds(),this.newId);
     this.timeFire.addTimeFire(this.getelapsedTimeSeconds());
+    // this.timeFire.addTimePageToFire( this.getelapsedTimeSeconds(),this.newId);
     console.log(this.getelapsedTimeSeconds());
     console.log(this.tservice.aboutTimes);
 //console.log(this.getElapsedTime)

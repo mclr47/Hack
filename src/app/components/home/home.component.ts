@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit,OnDestroy ,ChangeComponent{
   timeSpan:TimeSpan;
   ts:TimeService;
   timer:TimerComponent;
-  newId: string="home";
+  public newId: string="home";
   
   //@ViewChild("app-timer") homeTime : TimerComponent;
   @ViewChild("app-timer") homeTime : ViewContainerRef;
