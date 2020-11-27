@@ -56,6 +56,10 @@ export interface TimeSpan {
     });
 
     this.changeDetector.detectChanges();
+    //added here
+    console.log("from ngOnInit ~~~~~~")
+    console.log(this.newId);
+    console.log(this.entries[0].id);
   }
    returnCurrentPage()
    {return this.newId;}
@@ -70,7 +74,8 @@ export interface TimeSpan {
     //this.tservice.addTime(7,'about');
     //this.timeCounterSec.emit( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
     //console.log( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
-    this.tservice.addTime(this.getelapsedTimeSeconds(),this.newId);
+    this.tservice.addTime(this.getelapsedTimeSeconds(),this.entries[0].id);
+    this.timeFire.addTimePageToFire(this.getelapsedTimeSeconds(),this.entries[0].id);
     this.timeFire.addTimeFire(this.getelapsedTimeSeconds());
     // this.timeFire.addTimePageToFire( this.getelapsedTimeSeconds(),this.newId);
     console.log(this.getelapsedTimeSeconds());
