@@ -34,8 +34,8 @@ export class TimefireService {
   }
    
 
-  addTimeFire(t:number){
-    const timeCollection = this.db.collection('alltimes').add(t)
+  addTimeFire(t){
+    const timeCollection = this.db.collection('alltimes').add({t})
       .then((docRef) => console.log('time spent id is : ', docRef.id))
       .catch((error) => console.error('there was an error writing time to the database : ', error));
 
