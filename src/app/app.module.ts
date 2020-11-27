@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { DisplayComponent } from './components/displayTimes/display/display.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import { environment } from '../environments/environment';
     HomeComponent,
     AboutComponent,
     NavComponent,
+    DisplayComponent,
 
   ],
   imports: [

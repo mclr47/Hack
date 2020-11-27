@@ -6,7 +6,9 @@ import { NgModule } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {NavComponent} from '../header/nav/nav.component'
+import {NavComponent} from '../header/nav/nav.component';
+import { AngularFirestore } from '@angular/fire/firestore';
+import {TimefireService} from '../../services/timefire.service';
 export interface Entry {
   created: Date;
   id: string;
@@ -27,7 +29,8 @@ export interface TimeSpan {
 })
 //export class TimerComponent implements OnInit {
   export class TimerComponent{
-  constructor(private changeDetector: ChangeDetectorRef, private  tservice:TimeService) {
+  constructor(private changeDetector: ChangeDetectorRef, private  tservice:TimeService,
+   private timeFire:TimefireService) {
     
   }
 
@@ -59,7 +62,8 @@ export interface TimeSpan {
     //this.tservice.addTime(7,'about');
     //this.timeCounterSec.emit( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
     //console.log( Math.floor((new Date().getTime() -this.entries[this.entries.length-1].created.getTime())/1000))
-    this.tservice.addTime(this.getelapsedTimeSeconds(),this.newId)
+    this.tservice.addTime(this.getelapsedTimeSeconds(),this.newId);
+    this.timeFire.addTimeFire(this.getelapsedTimeSeconds());
     console.log(this.getelapsedTimeSeconds());
     console.log(this.tservice.aboutTimes);
 //console.log(this.getElapsedTime)
