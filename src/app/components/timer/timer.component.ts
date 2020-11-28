@@ -77,10 +77,14 @@ export interface TimeSpan {
     this.tservice.addTime(this.getelapsedTimeSeconds(),this.entries[0].id);
     this.timeFire.addTimePageToFire(this.getelapsedTimeSeconds(),this.entries[0].id);
     this.timeFire.addTimeFire(this.getelapsedTimeSeconds());
+
+    this.timeFire.getPageTimeFire(this.entries[0].id);
     // this.timeFire.addTimePageToFire( this.getelapsedTimeSeconds(),this.newId);
     console.log(this.getelapsedTimeSeconds());
     console.log(this.tservice.aboutTimes);
 //console.log(this.getElapsedTime)
+  //the avearage time
+  const ave =this.timeFire.getPageAverageFire(this.entries[0].id);
     this.destroyed$.next();
     this.destroyed$.complete();
   }

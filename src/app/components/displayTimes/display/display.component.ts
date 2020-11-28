@@ -13,6 +13,7 @@ export class DisplayComponent implements OnInit {
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 constructor(private db: AngularFirestore){
   this.timeArr = db.collection('alltimes').stateChanges();
+ // this.timeArr.
 }
 
 

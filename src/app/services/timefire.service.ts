@@ -10,7 +10,6 @@ import { CompileShallowModuleMetadata } from '@angular/compiler';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -21,11 +20,16 @@ import { HttpClient } from '@angular/common/http';
 import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { rejects } from 'assert';
+
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TimefireService {
     timeArr :  Observable<any[]>;
+    firestoreDb = firebase.firestore();
     
      // this.items = firestore.collection('items').valueChanges();
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -58,10 +62,94 @@ export class TimefireService {
     //     .catch((error) => console.error('There was an error while writing sound/song to the console' , error) );
 
   }
-    //    
+    //   
+  async getPageTimeFire(page)
+   { //const pageTimes : AngularFirestoreCollection<number>= this.db.collection(`page/${page.uid}/t`);
+   const pageTimesCollection = this.firestoreDb.collection(`${page}/${page.uid}/t`);
+   //const pageTimesCollection = this.db.collection(`page/${page.uid}/t`);
+   console.log("from .....getPageTimeFire(page)........");
+    // console.log(this.firestoreDb.collection('about/2tcxzsV5gpODdbzE9UFN/t')); 
+    //const ttt= await this.firestoreDb.collection('about/2tcxzsV5gpODdbzE9UFN/t');
+    const tt =(await this.firestoreDb.collection('about').doc('2tcxzsV5gpODdbzE9UFN').get()).data();
+    console.log("************ tt  **********************");
+    
+    console.log ( tt['t'] ) ;
+    console.log("************ tt  **********************");
+    const timesOfPage = [];
+    //const ttt= await this.firestoreDb.collection('about').get();
+    const ttt= await this.firestoreDb.collection(page).get();
+    
+    console.log("********** ttt ****** ");
+     ttt.docs.map((doc) => {/*{doc.id}*/ doc.data()['t'] ;
+               console.log(doc.data()['t']); 
+                console.log(typeof(doc.data()['t']));
+                timesOfPage.push(doc.data()['t']);  });
+     console.log(timesOfPage) ;           
+     console.log ("***end******* ttt ***end******** ")
+    //ttt.get().then((val) =>{ val.forEach((elem)=>{console.log(elem.data())}) });
+    console.log("from ....@ 2....getPageTimeFire(page)....@ 2...."); 
+      pageTimesCollection.get()
+      .then((querrySnapshot) =>{
+        querrySnapshot.forEach((time) =>{
+          console.log("from .....getPageTimeFire(page)........");
+           console.log(time.data);
+           console.log("from ....@ 2....getPageTimeFire(page)....@ 2....");
+        }
+      );
+      }); 
+      console.log('the %%%% typeof timeOfPage')  ;
+      console.log(typeof(timesOfPage))
+      console.log(typeof(Object.entries(timesOfPage)));
+      console.log(typeof(Object.values(timesOfPage)));
+      timesOfPage.reduce((a,b)=>(a+b))/timesOfPage.length;
+      return timesOfPage; 
+        
+  }
+  async getPageAverageFire(page) {
+    const timesOfPage = [];
+    const ttt= await this.firestoreDb.collection(page).get();
+    ttt.docs.map((doc) => {/*{doc.id}*/ doc.data()['t'] ;
+               console.log(doc.data()['t']); 
+                console.log(typeof(doc.data()['t']));
+                timesOfPage.push(doc.data()['t']);  });
+         console.log("!!!!!!The average is ......!!!!!!");
+         console.log((timesOfPage.reduce((a,b)=>(a+b))/timesOfPage.length).toFixed(2) );      
+        return (timesOfPage.reduce((a,b)=>(a+b))/timesOfPage.length).toFixed(2);        
+      // return this.getPageTimeFire(page).reduce((a,b)=>(a+b))/this.getPageTimeFire(page).lenght
+   
+   }
+ }
+//
+// const songs=[];
+            
+            // const songsCollection = firestoreDb.collection(`users/${user.uid}/songs`);
+            // songsCollection.get()
+            // .then((querySnapshot) => {
+            //   querySnapshot.forEach((doc)=>{
+            //       console.log('Song/sound document:', doc.data());
+            //       const songData = { ...doc.data(),id:doc.id};
+            //       //songs.push(doc.data());
+            //       songs.push(songData);
+            //       //console.log('Song/sound document:', doc.data());
+            //       //console.log(JSON.stringify( songs));
+            //   });
+            //   console.log("From firebase repo");
+            //   console.dir(songs);
+            //   resolve(songs);
+            //   console.log("From firebase repo");
+            //   console.dir(songs);
+            // });
+
+
+   //
+  //  getAvePageTimeFire(page) {
+  //    let timeArray = this.
+  //    //this.getPageTimeFire(page);
+  //      JSON.stringify(timeArray);
+  //  } 
   
 
-}
+// }
 
 
 // @Injectable({
